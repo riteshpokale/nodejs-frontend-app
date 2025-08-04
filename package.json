@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-frontend-app",
+  "version": "1.0.0",
+  "description": "Frontend static website served using Node.js and Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Ritesh Pokale",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
