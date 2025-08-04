@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # or 'main' depending on your branch name
+      - master
 
 jobs:
   build-and-deploy:
@@ -22,10 +22,10 @@ jobs:
         run: npm install
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/nodejs-frontend-app:latest .
+        run: docker build -t ritesh1227/nodejs-frontend-app:latest .
 
       - name: Login to DockerHub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "ritesh1227" --password-stdin
 
       - name: Push to DockerHub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/nodejs-frontend-app:latest
+        run: docker push ritesh1227/nodejs-frontend-app:latest
