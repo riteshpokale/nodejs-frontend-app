@@ -1,10 +1,9 @@
-
 name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - master
+      - master  # or 'main' depending on your branch name
 
 jobs:
   build-and-deploy:
