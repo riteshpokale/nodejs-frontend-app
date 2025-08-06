@@ -2,44 +2,50 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "riteshpokale/nodejs-frontend-app"
-        CONTAINER_NAME = "nodejs-app"
+        IMAGE_NAME = "ritesh-nodejs-frontend"
+        CONTAINER_NAME = "nodejs-frontend-container"
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Checkout') {
             steps {
+                echo '📥 Checking out code from GitHub...'
                 git 'https://github.com/riteshpokale/nodejs-frontend-app.git'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
+                echo '🔧 Building Docker image...'
                 sh 'docker build -t $IMAGE_NAME .'
             }
         }
 
-        stage('Stop Previous Container') {
+        stage('Test') {
             steps {
-                sh '''
-                    if [ $(docker ps -q -f name=$CONTAINER_NAME) ]; then
-                        docker stop $CONTAINER_NAME
-                        docker rm $CONTAINER_NAME
-                    fi
-                '''
+                echo '🧪 Running tests (placeholder)...'
+                // You can replace this with actual tests if available
+                sh 'echo "No tests defined. Skipping..."'
             }
         }
 
-        stage('Run Container') {
+        stage('Deploy') {
             steps {
-                sh 'docker run -d -p 8080:3000 --name $CONTAINER_NAME $IMAGE_NAME'
+                echo '🚀 Deploying container...'
+                sh '''
+                    docker rm -f $CONTAINER_NAME || true
+                    docker run -d --name $CONTAINER_NAME -p 8080:3000 $IMAGE_NAME
+                '''
             }
         }
     }
 
     post {
-        always {
-            echo "Pipeline execution completed!"
+        success {
+            echo '✅ Pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed!'
         }
     }
 }
